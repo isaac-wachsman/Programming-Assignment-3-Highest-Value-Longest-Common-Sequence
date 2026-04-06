@@ -63,6 +63,6 @@ The first line contains the maximum value of a common subsequence of the input s
 
 Assume the input strings are $A = a_1 a_2 ... a_n$ and $B = b_1 b_2 ... b_m$. Define $dp[i,j]$ to be the maximum value of a common subsequence between $a_1 a_2 ... a_i$ and $b_1 b_2 ... b_j$. 
 
-The recurrence is $$DP[i, j] = \begin{cases} 0 & \text{if } i=0 \text{ or } j=0 \\DP[i-1, j-1] + v(a_i) & \text{if } a_i = b_j \\\max(DP[i-1, j], DP[i, j-1]) & \text{if } a_i \neq b_j \end{cases}$$
+The recurrence used that is the basis of the algorithm is $dp[i,j] = dp[i-1, j-1] + value(a_i)$ if $a_i = b_j$ and $dp[i,j] = max(dp[i-1, j], dp[i, j-1])$ if $a_i \neq b_j$. The base cases are $dp[i,j] = 0$ if $i=0$ or $j=0$.
 
 ## Question 3
