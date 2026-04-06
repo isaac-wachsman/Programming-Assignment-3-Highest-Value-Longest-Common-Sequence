@@ -68,3 +68,22 @@ The recurrence used that is the basis of the algorithm is $dp[i,j] = dp[i-1, j-1
 First off, note that the base cases are correct because if one of the strings is empty ($i=0$ or $j=0$), then the longest common subsequence is 0. If $a_i = b_j$, then the highest value common subsequence includes this character at the end, so we should add the value of this character to the highest value found between the strings without the last character which is $dp[i-1, j-1]$ by definition. If $a_i \neq b_j$, then the highest value common subsequence cannot end in both $a_i$ and $b_j$, so either $dp[i,j] = dp[i-1,j]$ or $dp[i,j] = dp[i, j-1]$. We take the maximum of these two because $dp[i,j]$ is defined to be the maximum value of common subsequences.
 
 ## Question 3
+The assignment defines highest value common subsequences (HVCS), but never defines HVLCS (highest value <b>longest</b> common subsequence), so there is some ambiguity in the question. If we interpret HVCS and HVLCS to mean exactly the same thing, then the question is ill-posed because the length of the HVCS of A and B is not uniquely determined. For example, if A = 'aab' and B = 'baa' with a = 1 and b = 2, then 'aa' and 'b' are both highest value common subsequences but have different lengths. Therefore, I am interpreting a HVLCS of A and B to be a maximum valued subsequence over all maximum-length common subsequences of A and B. Hence, the length of all HVLCS's of A and B are the same - in fact they are all equal to the length of a longest common subsequence of A and B. Below is pseudocode for computing the length of the longest common subsequence of A and B: 
+
+```
+ALGORITHM LCSLength(A, B):
+    n = length(A)
+    m = length(B)
+    
+    CREATE TABLE DP[0...n][0...m]
+    
+    FOR i FROM 1 TO n:
+        FOR j FROM 1 TO m:
+            IF A[i] == B[j]:
+                DP[i][j] = DP[i-1][j-1] + 1
+            ELSE:
+                DP[i][j] = max(DP[i-1][j], DP[i][j-1])  
+    RETURN DP[n][m]
+```
+
+It is clear from the loops in the pseudocode that the time complexity of this algorithm is $O(nm)$.
