@@ -6,76 +6,59 @@
 
 ## Project Structure Overview
 
-- **src/main.cpp**: main driver - options for parsing text  file input or randomly generated preference lists.
-- **src/matcher.cpp**: uses the Gale-Shapley algorithm to generate a stable matching for the preference lists provided.
-- **src/verifier.cpp**: verifies that a proposed solution is both a valid matching and stable.
-- **src/parser.cpp**: parses text files to obtain preference lists for verifier and matcher.
-- **src/random_input.cpp**: generates random preference lists for a given n (# of hospitals).
+- **src/main.cpp**: main driver
+- **src/parser.cpp**: parses the input file to obtain the mapping from characters to values and the input strings
+- **src/parser.h**: header file for parser
+- **src/driver.cpp**: computes the highest value common subsequence of the two strings given
+- **src/driver.h**: header file for driver
   
 - **tests/inputN.txt**: the Nth input file
 - **tests/outputN.txt**: the Nth output file
 
-- **data/running_time_matching.png** : Graph of input size vs running time for matching.
-- **data/running_time_verifying.png** : Graph of input size vs running time for verifying.
+- **data/scatter_plot.png**: scatter plot of algorithm run time vs input string length
 
-
-## Compilation and Execution Instructions (Matcher)
+## Compilation and Execution Instructions
 (Please note that the commands given are for Windows Powershell. Similar commands can be run for other terminals.)
 
-1. Navigate to a folder of your choice on your terminal and run `git clone https://github.com/isaac-wachsman/Programming-Assignment-1-Matching-and-Verifying.git` to clone the repository to the folder.
+1. Navigate to a folder of your choice on your terminal and run `git clone https://github.com/isaac-wachsman/Programming-Assignment-3-Highest-Value-Longest-Common-Sequence.git` to clone the repository to the folder.
 
-2. Run `cd Programming-Assignment-1-Matching-and-Verifying` , then `cd src` to navigate to the src directory.
+2. Run `cd Programming-Assignment-3-Highest-Value-Longest-Common-Sequence` , then `cd src` to navigate to the src directory.
 
-3. Run `g++ -o main main.cpp matcher.cpp parser.cpp random_input.cpp` to compile the matching program.
+3. Run `g++ -o main main.cpp parser.cpp driver.cpp` to compile the matching program.
 
-4. Run `./main` to run the main program with random preference lists. You will be prompted to provide a positive integer n, after which the program will generate random preference lists of length n.
+4. Run `./main ../tests/inputN.txt` where N = 1, 2, or 3 to run the algorithm on the provided input files. `../tests/inputN.txt` may be replaced with the path (relative to src) to any valid input text file.
 
-5. Run `./main ../tests/inputN.txt` where N = 1, 2, or 3 to run Gale-Shapley algorithm on preference lists stored in text files. `../tests/inputN.txt` may be replaced with the path (relative to src) to any valid input text file.
 
-## Compilation and Execution Instruction (Verifier)
-(Please note that the commands given are for Windows Powershell. Similar commands can be run for other terminals.)
-
-1. Complete steps 1 and 2 from the previous section if not done already.
-2. Run `g++ -o verify verifier.cpp parser.cpp` to compile the verifier.
-3. Run `./verify ../tests/inputN.txt` where N = 1, 2, or 3 to get the preference lists stored in text files. `../tests/inputN.txt` may be replaced with the path (relative to src) to any valid input text file.
-4. The program will prompt you to enter n positive integers via the command line. The ith (1-indexed) integer you provide is the hospital number that student i is matched with in your proposed matching.
 
 ## Input / Output
 
-If random preference list mode is being used for the matcher, the only thing the user needs to provide is a valid positive integer.
-
-If preference lists are coming from a text file for both matcher and verifier, the input is expected to be in the form:
+The input is expected to be in the form:
 
 ```
-3
-1 2 3
-2 3 1
-2 1 3
-2 1 3
-1 2 3
-1 2 3
+K
+x1 v1
+x2 v2
+...
+xK vK
+A
+B
 ```
-The first line contains a single positive integer, n. The following 2*n lines each contain a permutation of the integers 1 through n with a single space between each one.
+The first line contains a single positive integer, K. The next K lines contains a character xi and a nonnegative integer value vi. The next line contains A, a string of arbitrary length, which uses only characters from the set {x1, ..., xK}. The last line contains B, a string of arbitary length, which uses only characters from the set {x1, ..., xK}.
 
 **NOTE:** Input files that do not match this specified format will result in undefined behavior.
 
 
-The matcher output is printed in the terminal in the form:
+The output is printed in the terminal in the form:
 ```
-4 1
-2 2
-3 3
-1 4
+max
+C
 ```
-with the line ``i j`` meaning that hospital i is matched with student j. The number of lines is equal to the number of hospitals/students used.
+The first line contains the maximum value of a common subsequence of the input strings A and B. The next line contains C, a string representing a common subsequence achieving the value max. Note that there may exist multiple common subsequences achieving a value of max.
 
-For the verifier, the terminal output is VALID STABLE if the matching is valid and stable. The verifier will print INVALID if the proposed matching is invalid or UNSTABLE if the matching is valid but unstable. An error message will be provided explaining why the matching is invalid or unstable.
+## Question 1
+![Running Time vs Input String Length](data/scatter_plot.png)
 
-## Running Time Graphs
-![Matcher Graph](data/running_time_matching.png)
 
-![Verifier Graph](data/running_time_verifying.png)
+## Question 2
 
-## Running Time Observations
-
-Based on the graphs of the input size vs execution time for the matcher and the verifier, both the matcher and the verifier appear to run in polynomial time. This is because the data is plotted on a graph where both axes are log-scaled and the relationship appears to be linear. This implies that there is a polynomial relationship between input size and execution size. The matcher runs the standard Gale-Shapley algorithm, so we suspect that the average run time is O($n^2$). We suspect that our verifier algorithm has a worst case time complexity of O($n^3$) because for each of the $n^2$ pairs, we need to go through the n-element preference lists and see if each in the pair prefers each other to their current match. However, the average time complexity is probably much less than this because in the case that the proposed matching is not valid or stable, a stable pair can usually be detected very fast. This was not reflected in the graph above however as we only measured the execution time for valid and stable matchings. 
+## Question 3
