@@ -43,7 +43,7 @@ xK vK
 A
 B
 ```
-The first line contains a single positive integer, K. The next K lines contains a character xi and a nonnegative integer value vi. The next line contains A, a string of arbitrary length, which uses only characters from the set {x1, ..., xK}. The last line contains B, a string of arbitary length, which uses only characters from the set {x1, ..., xK}.
+The first line contains a single positive integer, K. The next K lines contains a character xi and a nonnegative integer value vi. The xi are expected to be distinct though two different characters may have the same value. The next line contains A, a string of arbitrary length, which uses only characters from the set {x1, ..., xK}. The last line contains B, a string of arbitary length, which uses only characters from the set {x1, ..., xK}.
 
 **NOTE:** Input files that do not match this specified format will result in undefined behavior.
 
