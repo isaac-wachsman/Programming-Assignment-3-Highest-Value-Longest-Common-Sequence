@@ -52,6 +52,7 @@ The output is printed in the terminal in the form:
 ```
 max
 C
+[Elapsed time]
 ```
 The first line contains the maximum value of a common subsequence of the input strings A and B. The next line contains C, a string representing a common subsequence achieving the value max. Note that there may exist multiple common subsequences achieving a value of max.
 
