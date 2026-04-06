@@ -2,6 +2,7 @@
 #include <vector>
 #include "parser.h"
 #include "driver.h"
+#include <chrono>
 
 
 using namespace std;
@@ -9,6 +10,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+    auto start = chrono::high_resolution_clock::now();
+
     string filepath = argv[1];
 
     InputData inputData = parseInput(filepath);
@@ -24,7 +27,15 @@ int main(int argc, char* argv[])
 
     cout << sum << endl;
 
-    cout << "One optimal subsequence is: " << optimal << endl;
+    cout << optimal << endl;
+
+
+    auto end = chrono::high_resolution_clock::now();
+
+    chrono::duration<double> elapsed = end - start;
+
+
+    cout << "Elapsed time: " << elapsed.count() << "s" << endl;
 
     return 0;
 
