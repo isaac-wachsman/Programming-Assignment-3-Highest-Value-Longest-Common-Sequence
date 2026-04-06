@@ -65,4 +65,6 @@ Assume the input strings are $A = a_1 a_2 ... a_n$ and $B = b_1 b_2 ... b_m$. De
 
 The recurrence used that is the basis of the algorithm is $dp[i,j] = dp[i-1, j-1] + value(a_i)$ if $a_i = b_j$ and $dp[i,j] = max(dp[i-1, j], dp[i, j-1])$ if $a_i \neq b_j$. The base cases are $dp[i,j] = 0$ if $i=0$ or $j=0$.
 
+First off, note that the base cases are correct because if one of the strings is empty ($i=0$ or $j=0$), then the longest common subsequence is 0. If $a_i = b_j$, then the highest value common subsequence includes this character at the end, so we should add the value of this character to the highest value found between the strings without the last character which is $dp[i-1, j-1]$ by definition. If $a_i \neq b_j$, then the highest value common subsequence cannot end in both $a_i$ and $b_j$, so either $dp[i,j] = dp[i-1,j]$ or $dp[i,j] = dp[i, j-1]$. We take the maximum of these two because $dp[i,j]$ is defined to be the maximum value of common subsequences.
+
 ## Question 3
