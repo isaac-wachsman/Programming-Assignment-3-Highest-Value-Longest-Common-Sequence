@@ -58,6 +58,7 @@ The first line contains the maximum value of a common subsequence of the input s
 ## Question 1
 ![Running Time vs Input String Length](data/scatter_plot.png)
 
+The time complexity appears to be quadratic in n, which is expected as the time complexity of my algorithm is $O(nm)$, which is $O(n^2)$ when $n=m$.
 
 ## Question 2
 
